@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface LeaveRequestsRepository  extends MongoRepository<LeaveRequest,String> {
 
-    public List<LeaveRequest> findManyByEmpId(String empId);
+    List<LeaveRequest> findManyByEmpId(String empId);
 
-    public List<LeaveRequest> findManyByManagerId(String managerId);
+    List<LeaveRequest> findManyByManagerId(String managerId);
 
 }
