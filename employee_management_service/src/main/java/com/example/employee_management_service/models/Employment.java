@@ -1,6 +1,7 @@
 package com.example.employee_management_service.models;
 
 import com.example.employee_management_service.models.enums.CareerLevel;
+import com.example.employee_management_service.models.enums.EmployeeRole;
 import com.example.employee_management_service.models.enums.EmploymentType;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class Employment {
     private String HRID;
     private String department;
     private List<String> team;
+    private EmployeeRole employeeRole;
 }
 
 

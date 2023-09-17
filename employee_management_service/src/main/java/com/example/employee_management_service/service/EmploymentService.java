@@ -13,7 +13,13 @@ public class EmploymentService {
     @Autowired
     EmploymentDao employmentDao;
 
-    public Employment saveEmploymentDetails(Employment employee){
+    @Autowired
+    EmployeeAuthService employeeAuthService;
+
+    public Employment saveEmploymentDetails(Employment employee,String accessToken){
+        String empId=employeeAuthService.validateAccessToken(accessToken);
+        Boolean checkIfTheEmployeeIsHR=employmentDao.checkIfTheEmployeeIsHR(empId);
+        if(!checkIfTheEmployeeIsHR) throw new RuntimeException("You are not allowed to create Employee");
         return employmentDao.save(employee);
     }
 
@@ -22,5 +28,9 @@ public class EmploymentService {
 
         if(employmentDetails.isPresent()) return employmentDetails.get();
         return null;
+    }
+
+    public Employment getEmploymentOnAccessToken(String accessToken){
+        return employmentDao.findByEmpId(employeeAuthService.validateAccessToken(accessToken)).get();
     }
 }

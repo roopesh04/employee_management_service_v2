@@ -17,7 +17,7 @@ public class EmployeeAuthService {
     public String generateAccessTokenForUser(String empId){
         String accessToken= UUID.randomUUID().toString();
         redisTemplate.opsForValue().set(accessToken,empId);
-        redisTemplate.expire(accessToken, Duration.ofSeconds(60000));
+        redisTemplate.expire(accessToken, Duration.ofSeconds(6000));
         return accessToken;
     }
 
@@ -25,5 +25,9 @@ public class EmployeeAuthService {
         Object empId= redisTemplate.opsForValue().get(accessToken);
         if(empId==null) throw new RuntimeException("Invalid AccessToken");
         return empId.toString();
+    }
+
+    public void deleteAccessToken(String accessToken){
+        redisTemplate.expire(accessToken,Duration.ofSeconds(1));
     }
 }
